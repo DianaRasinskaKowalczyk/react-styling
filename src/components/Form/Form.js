@@ -1,6 +1,5 @@
 import React from "react";
-
-import StyledForm from "./Form.styled";
+import { StyledForm } from "./Form.styled";
 
 const Form = props => {
 	const { children, onSubmit } = props;

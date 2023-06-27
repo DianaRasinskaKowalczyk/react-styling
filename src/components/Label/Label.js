@@ -1,9 +1,10 @@
 import React from "react";
-import StyledLabel from "./Label.styled";
+import { StyledLabel } from "./Label.styled";
 
 const Label = props => {
-	const { children, htmlFor } = props;
-	return <StyledLabel htmlFor={htmlFor}>{children}</StyledLabel>;
+	const { label, children } = props;
+
+	return <StyledLabel htmlFor={label}>{children}</StyledLabel>;
 };
 
 export default Label;

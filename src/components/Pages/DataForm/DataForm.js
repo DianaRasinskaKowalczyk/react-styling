@@ -1,29 +1,27 @@
-import React, { useReducer } from "react";
+import React from "react";
+import { StyledDataForm } from "./DataForm.styled";
 import Label from "../../Label/Label";
 import TextInput from "../../TextInput/TextInput";
-import InputField from "../../InputField/InputField";
 
 const DataForm = props => {
-	const { fields, inputState, onChange } = props;
+	const { fields, currentState, onChange } = props;
 
 	const formFields = fields.map(field => {
 		return (
-			<InputField>
-				<Label htmlFor={field.name} key={field.name}>
-					{field.label}
-				</Label>
+			<div key={field.name}>
+				<Label label={field.name}>{field.label}</Label>
 				<TextInput
-					type={field.type}
 					name={field.name}
-					value={inputState[field.name]}
+					type={field.type}
+					value={currentState[field.value]}
 					onChange={onChange}
 					placeholder={field.placeholder}
 				/>
-			</InputField>
+			</div>
 		);
 	});
 
-	return { formFields };
+	return <StyledDataForm>{formFields}</StyledDataForm>;
 };
 
 export default DataForm;
