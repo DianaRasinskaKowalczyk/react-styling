@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../Header/Header";
 import Form from "../Form/Form";
 import ButtonBox from "../ButtonBox/ButtonBox";
@@ -7,47 +7,54 @@ import ButtonMovePage from "../ButtonMovePage/ButtonMovePage";
 import ConsentForm from "../Pages/ConsentForm/ConsentForm";
 import DataForm from "../Pages/DataForm/DataForm";
 import SelectionForm from "../Pages/SelectionForm/SelectionForm";
-import Dropdown from "../Dropdown/Dropdown ";
 import fields from "../../utilities/fields";
 
-const Page = () => {
-	const defaultFormData = {
-		firstName: "",
-		lastName: "",
-		phone: "",
-		email: "",
-		birthDate: "",
-		sports: "",
-		passes: "",
-	};
-
+const Page = ({ defaultFormData, defaultOptions, defaultCheck }) => {
 	const handleForm = e => {
 		e.preventDefault();
 	};
 
-	const [currentPage, setCurrentPage] = useState(1);
-
+	const [currentPage, setCurrentPage] = useState(2);
 	const [currentState, setCurrentState] = useState(defaultFormData);
+	const [selectedOptions, setSelectedOptions] = useState(defaultOptions);
+	const [checked, setChecked] = useState(defaultCheck);
 
-	const handleInputChange = ({ name, value }) => {
+	useEffect(() => {
+		setCurrentState(defaultFormData);
+	}, [defaultFormData]);
+
+	useEffect(() => {
+		setSelectedOptions(defaultOptions);
+	}, [defaultOptions]);
+
+	const handleInputChange = (name, value) => {
 		setCurrentState({ ...currentState, [name]: value });
 	};
 
-	const selectOption = ({ option, value }) => {
-		setCurrentState({ ...currentState, [option]: value });
+	const selectOption = (name, option) => {
+		setSelectedOptions({ ...selectedOptions, [name]: option });
+	};
+
+	const handleCheckBox = (name, inputValue) => {
+		setChecked({ ...checked, [name]: inputValue });
 	};
 
 	const pages = [
 		<DataForm
 			fields={fields[currentPage]}
 			currentState={currentState}
-			onChange={handleInputChange}></DataForm>,
-
+			onChange={handleInputChange}
+		/>,
 		<SelectionForm
 			fields={fields[currentPage]}
-			optionValue={currentState}
-			onSelect={selectOption}></SelectionForm>,
-		<ConsentForm>consent form</ConsentForm>,
+			selectedOptions={selectedOptions}
+			onSelect={selectOption}
+		/>,
+		<ConsentForm
+			fields={fields[currentPage]}
+			currentState={checked}
+			onCheck={handleCheckBox}
+			consentText={fields[currentPage].text}></ConsentForm>,
 	];
 
 	const handlePageForwards = e => {

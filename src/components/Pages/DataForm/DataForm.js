@@ -13,7 +13,7 @@ const DataForm = props => {
 				<TextInput
 					name={field.name}
 					type={field.type}
-					value={currentState[field.value]}
+					value={currentState[field.name]}
 					onChange={onChange}
 					placeholder={field.placeholder}
 				/>

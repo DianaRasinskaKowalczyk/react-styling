@@ -6,7 +6,7 @@ import {
 } from "./Dropdown.styled";
 import DropdownItem from "../DropdownItem/DropdownItem";
 
-const Dropdown = ({ label, optionValue, options, onSelect, name }) => {
+const Dropdown = ({ label, selectedOptions, options, onSelect, name }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isActive, setIsaActive] = useState(false);
 
@@ -18,7 +18,6 @@ const Dropdown = ({ label, optionValue, options, onSelect, name }) => {
 		onSelect(name, option);
 		setIsOpen(false);
 		setIsaActive(true);
-		console.log("click");
 	};
 
 	console.log(options);
@@ -34,7 +33,7 @@ const Dropdown = ({ label, optionValue, options, onSelect, name }) => {
 	return (
 		<StyledDropdownContainer>
 			<StyledDropdownButton type='button' onClick={handleToggleDropdown}>
-				{isActive ? optionValue : label}
+				{isActive ? selectedOptions : label}
 			</StyledDropdownButton>
 			{isOpen && <StyledOptionsList>{optionsList}</StyledOptionsList>}
 		</StyledDropdownContainer>
