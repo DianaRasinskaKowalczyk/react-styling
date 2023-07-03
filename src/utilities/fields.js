@@ -7,6 +7,7 @@ const fields = [
 			pattern: false,
 			type: "text",
 			placeholder: "",
+			errMessage: "is invalid",
 		},
 		{
 			name: "lastName",
@@ -15,6 +16,7 @@ const fields = [
 			pattern: false,
 			type: "text",
 			placeholder: "",
+			errMessage: "is invalid",
 		},
 		{
 			name: "phone",
@@ -23,6 +25,7 @@ const fields = [
 			pattern: /^\d{3}-\d{3}-\d{3}$/,
 			type: "text",
 			placeholder: "000-000-000",
+			errMessage: "is invalid",
 		},
 		{
 			name: "email",
@@ -31,14 +34,16 @@ const fields = [
 			pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
 			type: "text",
 			placeholder: "xxxxx@xxx.xx",
+			errMessage: "is invalid",
 		},
 		{
 			name: "birthDate",
 			label: "your date of birth",
 			required: true,
 			pattern: /[0-9]{4}-[0-9]{2}-[0-9]{2}/,
-			type: "number",
+			type: "text",
 			placeholder: "YYYY-MM-DD",
+			errMessage: "is invalid",
 		},
 	],
 	[
@@ -48,6 +53,7 @@ const fields = [
 			required: true,
 			type: "select",
 			options: ["yoga", "pilates", "stretching"],
+			errMessage: "please choose your sport",
 		},
 
 		{
@@ -56,6 +62,7 @@ const fields = [
 			required: true,
 			type: "select",
 			options: ["single pass", "weekly pass", "monthly pass"],
+			errMessage: "please choose your pass",
 		},
 	],
 	[
@@ -66,6 +73,7 @@ const fields = [
 			required: true,
 			type: "checkbox",
 			value: "dataConsent",
+			errMessage: "personal data consent has to be accepted",
 		},
 		{
 			name: "healthConsent",
@@ -74,6 +82,7 @@ const fields = [
 			required: true,
 			type: "checkbox",
 			value: "healthConsent",
+			errMessage: "health data consent has to be accepted",
 		},
 	],
 ];

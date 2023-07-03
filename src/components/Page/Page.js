@@ -8,24 +8,21 @@ import ConsentForm from "../Pages/ConsentForm/ConsentForm";
 import DataForm from "../Pages/DataForm/DataForm";
 import SelectionForm from "../Pages/SelectionForm/SelectionForm";
 import fields from "../../utilities/fields";
+import { validateInputs } from "../../utilities/validator";
+import ProgressBar from "../ProgressBar/ProgressBar";
+import FinalPage from "../Pages/FinalPage/FinalPage";
 
 const Page = ({ defaultFormData, defaultOptions, defaultCheck }) => {
 	const handleForm = e => {
 		e.preventDefault();
 	};
 
-	const [currentPage, setCurrentPage] = useState(2);
+	const [currentPage, setCurrentPage] = useState(0);
 	const [currentState, setCurrentState] = useState(defaultFormData);
 	const [selectedOptions, setSelectedOptions] = useState(defaultOptions);
 	const [checked, setChecked] = useState(defaultCheck);
-
-	useEffect(() => {
-		setCurrentState(defaultFormData);
-	}, [defaultFormData]);
-
-	useEffect(() => {
-		setSelectedOptions(defaultOptions);
-	}, [defaultOptions]);
+	const [currentErrors, setCurrentErrors] = useState([]);
+	const [progressBarValue, setProgressBarValue] = useState(0);
 
 	const handleInputChange = (name, value) => {
 		setCurrentState({ ...currentState, [name]: value });
@@ -44,22 +41,66 @@ const Page = ({ defaultFormData, defaultOptions, defaultCheck }) => {
 			fields={fields[currentPage]}
 			currentState={currentState}
 			onChange={handleInputChange}
+			errorsArr={currentErrors}
 		/>,
 		<SelectionForm
 			fields={fields[currentPage]}
 			selectedOptions={selectedOptions}
 			onSelect={selectOption}
+			errorsArr={currentErrors}
 		/>,
 		<ConsentForm
 			fields={fields[currentPage]}
 			currentState={checked}
 			onCheck={handleCheckBox}
-			consentText={fields[currentPage].text}></ConsentForm>,
+			consentText={fields[currentPage].text}
+			errorsArr={currentErrors}></ConsentForm>,
 	];
 
 	const handlePageForwards = e => {
 		e.preventDefault();
-		setCurrentPage(currentPage + 1);
+
+		if (currentPage === 0) {
+			const formErrors = validateInputs(currentState, fields[currentPage]);
+			console.log(formErrors);
+
+			if (formErrors.length > 0) {
+				setCurrentErrors(formErrors);
+			} else {
+				setCurrentPage(currentPage + 1);
+				setProgressBarValue(progressBarValue + 100 / pages.length);
+				setCurrentErrors([]);
+			}
+		}
+
+		if (currentPage === 1) {
+			const formErrors = validateInputs(selectedOptions, fields[currentPage]);
+			console.log(formErrors);
+
+			if (formErrors.length > 0) {
+				setCurrentErrors(formErrors);
+			} else {
+				setCurrentPage(currentPage + 1);
+				setProgressBarValue(progressBarValue + 100 / pages.length);
+				setCurrentErrors([]);
+			}
+		}
+	};
+
+	const handleSend = e => {
+		e.preventDefault();
+		const formErrors = validateInputs(checked, fields[currentPage]);
+
+		if (formErrors.length > 0) {
+			setCurrentErrors(formErrors);
+		} else {
+			setProgressBarValue(0);
+			setCurrentPage(0);
+			setCurrentState(defaultFormData);
+			setSelectedOptions(defaultOptions);
+			setChecked(defaultCheck);
+			setCurrentErrors([]);
+		}
 	};
 
 	const handlePageBackwards = e => {
@@ -72,6 +113,7 @@ const Page = ({ defaultFormData, defaultOptions, defaultCheck }) => {
 			<Header>
 				<h1>REGISTRATION FORM</h1>
 			</Header>
+			<ProgressBar value={progressBarValue} maxValue={100} />
 			<Form onSubmit={handleForm}>
 				{pages[currentPage]}
 
@@ -87,7 +129,9 @@ const Page = ({ defaultFormData, defaultOptions, defaultCheck }) => {
 							go forward
 						</ButtonMovePage>
 					) : (
-						<ButtonSend type='submit'>Send</ButtonSend>
+						<ButtonSend type='submit' onClick={handleSend}>
+							Send
+						</ButtonSend>
 					)}
 				</ButtonBox>
 			</Form>

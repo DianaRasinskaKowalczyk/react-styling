@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledSelectionForm = styled.section`
+const StyledFinalPage = styled.section`
 	width: 50rem;
 	/* height: 60rem; */
 	border-radius: 3rem;
@@ -13,4 +13,4 @@ const StyledSelectionForm = styled.section`
 	row-gap: 1rem;
 	margin-bottom: 20px;
 `;
-export { StyledSelectionForm };
+export { StyledFinalPage };
