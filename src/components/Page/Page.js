@@ -13,7 +13,7 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import FinalPage from "../Pages/FinalPage/FinalPage";
 
 const Page = ({ defaultData }) => {
-	const [currentPage, setCurrentPage] = useState(2);
+	const [currentPage, setCurrentPage] = useState(1);
 	const [currentState, setCurrentState] = useState(defaultData);
 	const [currentErrors, setCurrentErrors] = useState([]);
 	const [progressBarValue, setProgressBarValue] = useState(0);
