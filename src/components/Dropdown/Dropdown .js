@@ -8,7 +8,7 @@ import DropdownItem from "../DropdownItem/DropdownItem";
 
 const Dropdown = ({ label, selectedOptions, options, onSelect, name }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [isActive, setIsaActive] = useState(false);
+	
 
 	const handleToggleDropdown = () => {
 		setIsOpen(!isOpen);
@@ -17,7 +17,6 @@ const Dropdown = ({ label, selectedOptions, options, onSelect, name }) => {
 	const selectOption = option => {
 		onSelect(name, option);
 		setIsOpen(false);
-		setIsaActive(true);
 	};
 
 	console.log(options);
@@ -33,7 +32,7 @@ const Dropdown = ({ label, selectedOptions, options, onSelect, name }) => {
 	return (
 		<StyledDropdownContainer>
 			<StyledDropdownButton type='button' onClick={handleToggleDropdown}>
-				{isActive ? selectedOptions : label}
+				{selectedOptions ? selectedOptions : label}
 			</StyledDropdownButton>
 			{isOpen && <StyledOptionsList>{optionsList}</StyledOptionsList>}
 		</StyledDropdownContainer>

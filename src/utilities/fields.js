@@ -22,9 +22,9 @@ const fields = [
 			name: "phone",
 			label: "your phone number",
 			required: true,
-			pattern: /^\d{3}-\d{3}-\d{3}$/,
+			pattern: /^\d{3}\d{3}\d{3}$/,
 			type: "text",
-			placeholder: "000-000-000",
+			placeholder: "000000000",
 			errMessage: "is invalid",
 		},
 		{

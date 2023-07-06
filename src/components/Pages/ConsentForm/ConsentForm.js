@@ -4,7 +4,7 @@ import Checkbox from "../../Checkbox/Checkbox";
 import Error from "../../Error/Error";
 
 const ConsentForm = props => {
-	const { fields, currentState, onCheck, consentText, errorsArr } = props;
+	const { fields, currentState, onCheck, errorsArr } = props;
 
 	const checkboxList = fields.map(field => {
 		const fieldError = errorsArr.map(error => {
@@ -34,4 +34,3 @@ const ConsentForm = props => {
 };
 
 export default ConsentForm;
-

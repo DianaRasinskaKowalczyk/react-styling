@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const StyledFinalPage = styled.section`
 	width: 50rem;
-	/* height: 60rem; */
 	border-radius: 3rem;
 	box-shadow: 0.8rem 0.8rem 1.4rem #c8d0e7, -0.2rem -0.2rem 1.8rem #ffffff;
 	padding: 4rem;
@@ -13,4 +12,7 @@ const StyledFinalPage = styled.section`
 	row-gap: 1rem;
 	margin-bottom: 20px;
 `;
+
+
+
 export { StyledFinalPage };

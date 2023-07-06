@@ -2,31 +2,19 @@ import React from "react";
 import Page from "../Page/Page";
 
 const PageWrapper = () => {
-	const defaultFormData = {
+	const defaultData = {
 		firstName: "",
 		lastName: "",
 		phone: "",
 		email: "",
 		birthDate: "",
-	};
-
-	const defaultOptions = {
 		sports: "",
 		passes: "",
-	};
-
-	const defaultCheck = {
 		dataConsent: "",
 		healthConsent: "",
 	};
 
-	return (
-		<Page
-			defaultFormData={defaultFormData}
-			defaultOptions={defaultOptions}
-			defaultCheck={defaultCheck}
-		/>
-	);
+	return <Page defaultData={defaultData} />;
 };
 
 export default PageWrapper;

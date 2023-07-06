@@ -16,7 +16,7 @@ const StyledButtonMovePage = styled.button`
 		color: #6d5dfc;
 	}
 	&:active {
-		box-shadow: inset 0.2rem 0.2rem 0.5rem #c8d0e7,
+		box-shadow: inset 0.2rem 0.2rem 0.5rem #5b0eeb,
 			inset -0.2rem -0.2rem 0.5rem #ffffff;
 	}
 	&:disabled {
