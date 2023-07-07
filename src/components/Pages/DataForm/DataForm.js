@@ -4,6 +4,7 @@ import Label from "../../Label/Label";
 import TextInput from "../../TextInput/TextInput";
 import Error from "../../Error/Error";
 
+
 const DataForm = props => {
 	const { fields, currentState, onChange, errorsArr } = props;
 

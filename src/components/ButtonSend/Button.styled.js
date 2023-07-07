@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledButtonSend = styled.button`
+const StyledButton = styled.button`
 	width: 10rem;
 	height: 4rem;
 	border-radius: 1rem;
@@ -26,4 +26,4 @@ const StyledButtonSend = styled.button`
 	}
 `;
 
-export { StyledButtonSend };
+export { StyledButton };

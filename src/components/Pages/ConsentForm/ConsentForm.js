@@ -3,13 +3,14 @@ import { StyledConsentForm } from "./ConsentForm.styled";
 import Checkbox from "../../Checkbox/Checkbox";
 import Error from "../../Error/Error";
 
+
 const ConsentForm = props => {
 	const { fields, currentState, onCheck, errorsArr } = props;
 
 	const checkboxList = fields.map(field => {
 		const fieldError = errorsArr.map(error => {
 			if (error.name === field.name) {
-				return `${field.errMessage}`;
+				return `${error.message}`;
 			}
 			return null;
 		});

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState } from "react";
 import Header from "../Header/Header";
 import Form from "../Form/Form";
 import ButtonBox from "../ButtonBox/ButtonBox";
-import ButtonSend from "../ButtonSend/ButtonSend";
+import Button from "../ButtonSend/Button";
 import ButtonMovePage from "../ButtonMovePage/ButtonMovePage";
 import ConsentForm from "../Pages/ConsentForm/ConsentForm";
 import DataForm from "../Pages/DataForm/DataForm";
@@ -11,9 +11,10 @@ import fields from "../../utilities/fields";
 import { validateInputs } from "../../utilities/validator";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import FinalPage from "../Pages/FinalPage/FinalPage";
+import ThankyouPage from "../Pages/ThankyouPage/ThankyouPage";
 
 const Page = ({ defaultData }) => {
-	const [currentPage, setCurrentPage] = useState(1);
+	const [currentPage, setCurrentPage] = useState(0);
 	const [currentState, setCurrentState] = useState(defaultData);
 	const [currentErrors, setCurrentErrors] = useState([]);
 	const [progressBarValue, setProgressBarValue] = useState(0);
@@ -53,6 +54,10 @@ const Page = ({ defaultData }) => {
 			onCheck={handleCheckBox}
 			errorsArr={currentErrors}></ConsentForm>,
 		<FinalPage summaryList={currentState}></FinalPage>,
+		<ThankyouPage>
+			Thank you for filling the form. Please check your email to confirm your
+			subscription.
+		</ThankyouPage>,
 	];
 
 	const handlePageForwards = e => {
@@ -64,27 +69,72 @@ const Page = ({ defaultData }) => {
 			setCurrentErrors(formErrors);
 		} else {
 			setCurrentPage(currentPage + 1);
-			setProgressBarValue(progressBarValue + 100 / (pages.length - 1));
+			setProgressBarValue(progressBarValue + 100 / (pages.length - 2));
 			setCurrentErrors([]);
 		}
 	};
 
 	const handlePageBackwards = e => {
 		e.preventDefault();
-		setCurrentPage(currentPage - 1);
+		setCurrentPage(currentPage - 2);
 	};
 
 	const handleSend = e => {
 		e.preventDefault();
-		const formErrors = validateInputs(currentState, fields[currentPage - 1]);
+		// const formErrors = validateInputs(currentState, fields[currentPage - 2]);
 
-		if (formErrors.length > 0) {
-			setCurrentErrors(formErrors);
+		// if (formErrors.length > 0) {
+		// 	setCurrentErrors(formErrors);
+		// } else {
+		setProgressBarValue(0);
+		setCurrentPage(pages.length - 1);
+		setCurrentState(defaultData);
+		setCurrentErrors([]);
+		// }
+	};
+
+	const handleConfirm = e => {
+		e.preventDefault();
+		setCurrentPage(0);
+		setCurrentErrors([]);
+		setCurrentState(defaultData);
+	};
+
+	const selectButton = () => {
+		if (currentPage === pages.length - 2) {
+			return (
+				<>
+					<ButtonMovePage
+						type='button'
+						disabled={currentPage === 0 ? true : false}
+						onClick={handlePageBackwards}>
+						go back
+					</ButtonMovePage>
+					<Button type='submit' onClick={handleSend}>
+						Send
+					</Button>
+				</>
+			);
+		} else if (currentPage === pages.length - 1) {
+			return (
+				<Button type='click' onClick={handleConfirm}>
+					OK
+				</Button>
+			);
 		} else {
-			setProgressBarValue(0);
-			setCurrentPage(0);
-			setCurrentState(defaultData);
-			setCurrentErrors([]);
+			return (
+				<>
+					<ButtonMovePage
+						type='button'
+						disabled={currentPage === 0 ? true : false}
+						onClick={handlePageBackwards}>
+						go back
+					</ButtonMovePage>
+					<ButtonMovePage type='button' onClick={handlePageForwards}>
+						go forward
+					</ButtonMovePage>
+				</>
+			);
 		}
 	};
 
@@ -97,23 +147,7 @@ const Page = ({ defaultData }) => {
 			<Form onSubmit={handleForm}>
 				{pages[currentPage]}
 
-				<ButtonBox>
-					<ButtonMovePage
-						type='button'
-						disabled={currentPage === 0 ? true : false}
-						onClick={handlePageBackwards}>
-						go back
-					</ButtonMovePage>
-					{currentPage !== pages.length - 1 ? (
-						<ButtonMovePage type='button' onClick={handlePageForwards}>
-							go forward
-						</ButtonMovePage>
-					) : (
-						<ButtonSend type='submit' onClick={handleSend}>
-							Send
-						</ButtonSend>
-					)}
-				</ButtonBox>
+				<ButtonBox>{selectButton()}</ButtonBox>
 			</Form>
 		</>
 	);

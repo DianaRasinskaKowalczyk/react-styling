@@ -5,13 +5,7 @@ export function validateInputs(inputData, fieldsArr) {
 				const value = inputData[field.name];
 
 				if (field.required) {
-					if (
-						(value.length < 2 &&
-							field.name !== "email" &&
-							field.name !== "phone" &&
-							field.name !== "birthDate") ||
-						value === false
-					) {
+					if (value.length < 2 && !field.pattern) {
 						errors.push({
 							name: field.name,
 							message: field.errMessage,
