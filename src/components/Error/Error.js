@@ -2,8 +2,10 @@ import React from "react";
 import { StyledError } from "./Error.styled";
 
 const Error = props => {
-	const { children } = props;
+	const { errors } = props;
 
-	return <StyledError>{children}</StyledError>;
+	return <StyledError>{errors.map(e => e.message)}</StyledError>;
+	
+
 };
 export default Error;

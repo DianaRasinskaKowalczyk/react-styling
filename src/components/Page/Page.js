@@ -3,7 +3,6 @@ import Header from "../Header/Header";
 import Form from "../Form/Form";
 import ButtonBox from "../ButtonBox/ButtonBox";
 import Button from "../ButtonSend/Button";
-import ButtonMovePage from "../ButtonMovePage/ButtonMovePage";
 import ConsentForm from "../Pages/ConsentForm/ConsentForm";
 import DataForm from "../Pages/DataForm/DataForm";
 import SelectionForm from "../Pages/SelectionForm/SelectionForm";
@@ -12,6 +11,7 @@ import { validateInputs } from "../../utilities/validator";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import FinalPage from "../Pages/FinalPage/FinalPage";
 import ThankyouPage from "../Pages/ThankyouPage/ThankyouPage";
+import ButtonMovePage from "../ButtonMovePage/ButtonMovePage";
 
 const Page = ({ defaultData }) => {
 	const [currentPage, setCurrentPage] = useState(0);
@@ -81,16 +81,10 @@ const Page = ({ defaultData }) => {
 
 	const handleSend = e => {
 		e.preventDefault();
-		// const formErrors = validateInputs(currentState, fields[currentPage - 2]);
-
-		// if (formErrors.length > 0) {
-		// 	setCurrentErrors(formErrors);
-		// } else {
 		setProgressBarValue(0);
 		setCurrentPage(pages.length - 1);
 		setCurrentState(defaultData);
 		setCurrentErrors([]);
-		// }
 	};
 
 	const handleConfirm = e => {
@@ -101,42 +95,43 @@ const Page = ({ defaultData }) => {
 	};
 
 	const selectButton = () => {
-		if (currentPage === pages.length - 2) {
-			return (
-				<>
-					<ButtonMovePage
-						type='button'
-						disabled={currentPage === 0 ? true : false}
-						onClick={handlePageBackwards}>
-						go back
-					</ButtonMovePage>
-					<Button type='submit' onClick={handleSend}>
-						Send
-					</Button>
-				</>
-			);
-		} else if (currentPage === pages.length - 1) {
+		const ButtonRight = getButtonRight();
+
+		if (currentPage === pages.length - 1) {
 			return (
 				<Button type='click' onClick={handleConfirm}>
 					OK
 				</Button>
 			);
-		} else {
+		}
+
+		return (
+			<>
+				<ButtonMovePage
+					type='button'
+					disabled={currentPage === 0 ? true : false}
+					onClick={handlePageBackwards}>
+					go back
+				</ButtonMovePage>
+				{ButtonRight}
+			</>
+		);
+	};
+
+	function getButtonRight() {
+		if (currentPage === pages.length - 2) {
 			return (
-				<>
-					<ButtonMovePage
-						type='button'
-						disabled={currentPage === 0 ? true : false}
-						onClick={handlePageBackwards}>
-						go back
-					</ButtonMovePage>
-					<ButtonMovePage type='button' onClick={handlePageForwards}>
-						go forward
-					</ButtonMovePage>
-				</>
+				<Button type='submit' onClick={handleSend}>
+					Send
+				</Button>
 			);
 		}
-	};
+		return (
+			<ButtonMovePage type='button' onClick={handlePageForwards}>
+				go forward
+			</ButtonMovePage>
+		);
+	}
 
 	return (
 		<>

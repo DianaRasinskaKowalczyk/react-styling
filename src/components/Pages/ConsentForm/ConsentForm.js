@@ -8,12 +8,12 @@ const ConsentForm = props => {
 	const { fields, currentState, onCheck, errorsArr } = props;
 
 	const checkboxList = fields.map(field => {
-		const fieldError = errorsArr.map(error => {
-			if (error.name === field.name) {
-				return `${error.message}`;
-			}
-			return null;
-		});
+		// const fieldError = errorsArr.map(error => {
+		// 	if (error.name === field.name) {
+		// 		return `${error.message}`;
+		// 	}
+		// 	return null;
+		// });
 
 		if (field.type === "checkbox") {
 			return (
@@ -25,7 +25,7 @@ const ConsentForm = props => {
 						name={field.name}
 						consentText={field.label}
 					/>
-					<Error>{fieldError}</Error>
+					<Error errors={errorsArr.filter(e => e.name === field.name)} />
 				</React.Fragment>
 			);
 		}

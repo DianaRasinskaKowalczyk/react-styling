@@ -9,12 +9,12 @@ const DataForm = props => {
 	const { fields, currentState, onChange, errorsArr } = props;
 
 	const formFields = fields.map(field => {
-		const fieldError = errorsArr.map(error => {
-			if (error.name === field.name) {
-				return `${field.label} ${error.message}`;
-			}
-			return null;
-		});
+		// const fieldError = errorsArr.map(error => {
+		// 	if (error.name === field.name) {
+		// 		return `${field.label} ${error.message}`;
+		// 	}
+		// 	return null;
+		// });
 
 		return (
 			<div key={field.name}>
@@ -26,7 +26,7 @@ const DataForm = props => {
 					onChange={onChange}
 					placeholder={field.placeholder}
 				/>
-				<Error>{fieldError}</Error>
+				<Error errors={errorsArr.filter(e => e.name === field.name)} />
 			</div>
 		);
 	});

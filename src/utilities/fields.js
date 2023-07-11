@@ -7,7 +7,7 @@ const fields = [
 			pattern: false,
 			type: "text",
 			placeholder: "",
-			errMessage: "is invalid",
+			errMessage: "your first name is invalid",
 		},
 		{
 			name: "lastName",
@@ -16,7 +16,7 @@ const fields = [
 			pattern: false,
 			type: "text",
 			placeholder: "",
-			errMessage: "is invalid",
+			errMessage: "your last name is invalid",
 		},
 		{
 			name: "phone",
@@ -25,7 +25,7 @@ const fields = [
 			pattern: /^\d{3}\d{3}\d{3}$/,
 			type: "text",
 			placeholder: "000000000",
-			errMessage: "is invalid",
+			errMessage: "your phone number is invalid",
 		},
 		{
 			name: "email",
@@ -34,7 +34,7 @@ const fields = [
 			pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
 			type: "text",
 			placeholder: "xxxxx@xxx.xx",
-			errMessage: "is invalid",
+			errMessage: "your email address is invalid",
 		},
 		{
 			name: "birthDate",
@@ -43,7 +43,7 @@ const fields = [
 			pattern: /[0-9]{4}-[0-9]{2}-[0-9]{2}/,
 			type: "text",
 			placeholder: "YYYY-MM-DD",
-			errMessage: "is invalid",
+			errMessage: "your date of birth is invalid",
 		},
 	],
 	[
